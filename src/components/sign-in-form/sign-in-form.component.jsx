@@ -31,23 +31,18 @@ const SignInForm = () => {
         setFormFields(defauldFormFields);
     }
 
+    const signInGoogleUser = async () => await signInWithGooglePopup(); 
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log(response);
-
+            await signInAuthUserWithEmailAndPassword(email, password);
             resetFormFields();
         } catch (e) {
             alert(handleErrors(e));
         }
     }
-
-    const logGoogleUser = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
-    } 
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -64,7 +59,7 @@ const SignInForm = () => {
                 <FormInput label="Password" type='password' required onChange={handleChange} name="password" value={password} />
                 <div className="buttons-container">
                     <Button children="Sign In" type="submit"/>
-                    <Button onClick={logGoogleUser} buttonType="google" type="button">Google Sign In</Button>
+                    <Button onClick={signInGoogleUser} buttonType="google" type="button">Google Sign In</Button>
                 </div>
             </form>
         </div>

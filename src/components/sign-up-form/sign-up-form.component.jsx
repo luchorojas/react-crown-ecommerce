@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.uils";
-import { createUserDocumentFromAuth } from "../../utils/firebase/firebase.uils";
+import { createUserDocumentFromAuth, createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.uils";
+
 import FormInput from "../form-input/form-input.component";
-import './sign-up-form.styles.scss'
 import Button from "../button/button.component";
+
+import './sign-up-form.styles.scss'
 
 const defauldFormFields = {
     displayName: '',
@@ -29,7 +30,8 @@ const SignUpForm = () => {
         }
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            const userDocRef = await createUserDocumentFromAuth(user, {displayName})
+                   
+            await createUserDocumentFromAuth(user, {displayName})
             resetFormFields();
         } catch (e) {
             if (e.code === "auth/email-already-in-use") {
