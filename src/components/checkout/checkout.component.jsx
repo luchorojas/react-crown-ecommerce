@@ -1,4 +1,4 @@
-import './checkout.styles.scss';
+import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from './checkout.styles';
 
 import { useContext } from 'react';
 import { CartContext } from '../../contexts/cart.context';
@@ -7,28 +7,28 @@ import CheckoutItem from '../checkout-item/checkout-item.component';
 const getHeader = () => {
     const columns = ["product", "description", "quantity", "price", "remove"];
     return (
-        <div className='checkout-header'> 
+        <CheckoutHeader> 
             {columns.map(column => {
                 return (
-                    <div className='header-block'>
+                    <HeaderBlock>
                         <span>{column}</span>
-                    </div>
+                    </HeaderBlock>
                 )
             })}
-        </div>
+        </CheckoutHeader>
     )
 }
 
 const Checkout = () => {
     const { cartItems, cartTotal } = useContext(CartContext);
     return (
-        <div className='checkout-container'>
+        <CheckoutContainer>
             {getHeader()}
             { cartItems.map(cartItem => (
                 <CheckoutItem key={cartItem.id} cartItem={cartItem}/>
             ))}
-            <span className='total'>Total: ${cartTotal}</span>
-        </div>
+            <Total>Total: ${cartTotal}</Total>
+        </CheckoutContainer>
     );
 }
 
