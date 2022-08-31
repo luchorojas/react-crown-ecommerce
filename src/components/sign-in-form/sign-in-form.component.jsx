@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.uils";
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.styles.scss'
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES }  from "../button/button.component";
 
 const defauldFormFields = {
     displayName: '',
@@ -59,7 +59,7 @@ const SignInForm = () => {
                 <FormInput label="Password" type='password' required onChange={handleChange} name="password" value={password} />
                 <div className="buttons-container">
                     <Button children="Sign In" type="submit"/>
-                    <Button onClick={signInGoogleUser} buttonType="google" type="button">Google Sign In</Button>
+                    <Button onClick={signInGoogleUser} buttonType={BUTTON_TYPE_CLASSES.google} type="button">Google Sign In</Button>
                 </div>
             </form>
         </div>
