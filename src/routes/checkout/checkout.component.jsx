@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux';
-import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from './checkout.styles';
+import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
+import PaymentForm from '../../components/payment-form/payment-form.component';
+
+import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from './checkout.styles';
 
 const getHeader = () => {
     const columns = ["product", "description", "quantity", "price", "remove"];
@@ -10,7 +12,7 @@ const getHeader = () => {
         <CheckoutHeader> 
             {columns.map(column => {
                 return (
-                    <HeaderBlock>
+                    <HeaderBlock key={column}>
                         <span>{column}</span>
                     </HeaderBlock>
                 )
@@ -25,10 +27,11 @@ const Checkout = () => {
     return (
         <CheckoutContainer>
             {getHeader()}
-            { cartItems.map(cartItem => (
-                <CheckoutItem key={cartItem.id} cartItem={cartItem}/>
-            ))}
+            { cartItems.map(cartItem => {
+                return <CheckoutItem key={`list-${cartItem.id}`} cartItem={cartItem}/>
+            })}
             <Total>Total: $ {cartTotal ? cartTotal : 0}</Total>
+            <PaymentForm />
         </CheckoutContainer>
     );
 }
